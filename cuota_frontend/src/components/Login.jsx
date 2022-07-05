@@ -6,6 +6,20 @@ import shareVideo from '../assets/share.mp4'
 import logo from '../assets/logo2.png'
 
 const Login = () => {
+
+  const responseGoogle= (response) =>{
+  localStorage.setItem('user' , JSON.stringify(response.profileObj))
+
+  const {name , googleId , imageURL } =response.profileObj;
+
+  const doc ={
+    _id:googleId,
+    _type:'user',
+    userName:name ,
+    image: imageURL,
+
+  }
+  }
   return (
     <div className='flex justify-start items-center flex-col h-screen'>
       <div className='relative w-full h-full'>
@@ -24,18 +38,21 @@ const Login = () => {
             </div>
             <div className='shadow-2xl'>
               <GoogleLogin
-              clientId=''
+              clientId='882946029312-qapmi0vdlftcpm9n6paca02tncn7t71n.apps.googleusercontent.com'
               render={(renderProps) => (
                 <button
-                type='button'
-                className='bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none'
-                onClick={renderProps.onClick}
-                
-                >
-                 <FcGoogle className='mr-4'/>Sign in with Google
+                  type='button'
+                  className='bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none'
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  
+                  >
+                  <FcGoogle className='mr-4'/>Sign in with Google
                 </button>
-
-              )}
+                 )}
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
                />
                
             </div>
