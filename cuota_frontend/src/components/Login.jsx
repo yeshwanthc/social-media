@@ -13,7 +13,7 @@ const Login = () => {
   const {name , googleId , imageURL } = response.profileObj;
 
   const doc ={
-    _id:response.profileObj.googleId,
+    _id:googleId,
     _type:'user',
     userName:name ,
     image: imageURL,
